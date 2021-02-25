@@ -1,12 +1,9 @@
-struct Nodo{
-    int dato;
-    Nodo *siguiente;
-};
+#include "Nodo.h"
 
-void insertar(Nodo *lista, int dato);
+typedef Nodo* Node;
 
-void eliminar(Nodo *lista, int index);
+void insertar(Node inicio, int dato);
 
-int obtener(Nodo *lista, int index);
+void eliminar(Node inicio, int index);
 
-void mostrarLista(Nodo *lista);
+void mostrarLista(Node inicio);

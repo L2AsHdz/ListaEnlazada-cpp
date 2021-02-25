@@ -3,10 +3,12 @@
 
 using namespace std;
 
+typedef Nodo* Node;
+
 void mostrarMenu();
 void ejecutarOpcion(int op);
 
-Nodo *lista;
+Node inicio = new Nodo();
 
 int main(){
     int op;
@@ -17,7 +19,7 @@ int main(){
         cin>>op;
         ejecutarOpcion(op);
 
-    }while(op!= 5);
+    }while(op!= 4);
 
     return 0;
 }
@@ -25,9 +27,8 @@ int main(){
 void mostrarMenu(){
     cout<<"\n1. Insertar elemento"<<endl;
     cout<<"2. Eliminar elemento"<<endl;
-    cout<<"3. Buscar"<<endl;
-    cout<<"4. MostrarLista"<<endl;
-    cout<<"5. Salir"<<endl;
+    cout<<"3. MostrarLista"<<endl;
+    cout<<"4. Salir"<<endl;
 }
 
 void ejecutarOpcion(int op){
@@ -38,20 +39,17 @@ void ejecutarOpcion(int op){
         case 1:
             cout<<"Ingrese el dato a ingresar"<<endl;
             cin>>dato;
-            insertar(lista, dato);
+            insertar(inicio, dato);
             break;
         case 2:
             cout<<"Ingrese el indice a eliminar"<<endl;
             cin>>index;
-            eliminar(lista, index);
+            eliminar(inicio, index);
             break;
         case 3:
-            cout<<"ingrese el indice a obtener"<<endl;
-            cin>>index;
-            cout<<"El dato es "<<obtener(lista, index)<<endl;
+            mostrarLista(inicio);
             break;
-        case 4:
-            mostrarLista(lista);
-            break;
+        default:
+            cout<<"Saliendo..."<<endl;
     }
 }

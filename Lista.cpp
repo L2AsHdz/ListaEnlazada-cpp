@@ -1,91 +1,69 @@
 #include <iostream>
-#include "Lista.h"
+#include "Nodo.h"
 
 using namespace std;
 
-void insertar(Nodo *lista, int dato){
-    Nodo *nuevo = new Nodo();
-    nuevo->dato = dato;
+typedef Nodo* Node;
 
-    Nodo *aux = lista;
-    Nodo *temp;
+void insertar(Node inicio, int newDato) {
+    Node nuevo = new Nodo();
+    nuevo->setDato(newDato);
 
-    if (lista->siguiente == NULL){
-        nuevo->siguiente = aux;
-        aux->siguiente = nuevo;
-        cout<<"Elemento ingresado "<<dato<<endl;
+    if (inicio->getNext() == NULL) {
+        inicio->setNext(nuevo);
+        cout<<"\nEL dato "<<inicio->getNext()->getDato()<<" se ha ingresado a la lista"<<endl;
     } else {
-        while (aux->siguiente != NULL){
-            aux = aux->siguiente;
+        Node temp = inicio;
+        while (temp->getNext() != NULL) {
+            temp = temp->getNext();
         }
-
-        nuevo->siguiente = NULL;
-        aux->siguiente = nuevo;
-        cout<<"Elemento ingresado "<<dato<<endl;
+        temp->setNext(nuevo);
+        cout<<"\nEL dato "<<temp->getNext()->getDato()<<" se ha ingresado a la lista"<<endl;
     }
 }
 
-void eliminar(Nodo *lista, int index){
-
-    if (lista != NULL) {
-        int i = 0;
-        Nodo *auxDelete;
-        Nodo *anterior = NULL;
-
-        auxDelete = lista;
-
-        while ((auxDelete != NULL) && (i != index)) {
-            anterior = auxDelete;
-            auxDelete = auxDelete->siguiente;
-
-            i++;
-        }
-
-        if (auxDelete == NULL) {
-            cout<<"Elemento no encontrado"<<endl;;
-        } else if (anterior == NULL) {
-            lista = lista->siguiente;
-            delete  auxDelete;
-            cout<<"Elemento eliminado"<<endl;
-        } else {
-            anterior->siguiente = auxDelete->siguiente;
-            delete auxDelete;
-            cout<<"Elemento eliminado"<<endl;
-        }
-    }
-}
-
-int obtener(Nodo *lista, int index){
-    int i = 0;
-    bool encontrado =false;
-    Nodo *actual = new Nodo();
-    actual = lista;
-
-    while ((actual != NULL)) {
-        if (i == index) {
-            encontrado = true;
-        } else {
-            actual = actual->siguiente;
-            i++;
-        }
-
-    }
-
-    if (encontrado) {
-        cout<<"Elemento encontrado"<<endl;
-        return actual->dato;
+void mostrarLista(Node inicio){
+    if (inicio->getNext() == NULL) {
+        cout<<"\nLista vacia"<<endl;
     } else {
-        return -1;
-        cout<<"Elemento no encontrado"<<endl;
+        Node temp = inicio;
+        while (temp->getNext() != NULL) {
+            cout<<endl<<temp->getNext()->getDato()<<endl;
+            temp = temp->getNext();
+        }
     }
 }
 
-void mostrarLista(Nodo *lista){
-    Nodo *actual = new Nodo();
-    actual = lista;
+void eliminar(Node inicio, int index){
+    int indice = 0;
+    bool encontrado = false;
 
-    while (actual != NULL) {
-        cout<<actual->dato<<endl;
-        actual = actual->siguiente;
+    if (inicio->getNext() == NULL){
+        cout<<"Lista vacia"<<endl;
+    } else {
+        Node actual = inicio;
+        Node borrar;
+        Node anterior = NULL;
+
+        while (actual->getNext() != NULL){
+
+            if (indice == index) {
+                if (anterior == NULL) {
+                    borrar = actual->getNext();
+                    actual->setNext(borrar->getNext());
+                    delete borrar;
+                    cout<<"Eliminado"<<endl;
+                } else {
+                    borrar = actual->getNext();
+                    anterior->setNext(borrar->getNext());
+                    delete borrar;
+                    cout<<"Eliminado"<<endl;
+                }
+            } else {
+                anterior = actual->getNext();
+                actual = actual->getNext();
+            }
+        }
     }
+
 }
